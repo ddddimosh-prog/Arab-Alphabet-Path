@@ -1,0 +1,481 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Quran Alphabet Path</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Amiri:wght@400;700&family=PT+Sans:wght@400;700&family=PT+Serif:wght@400;700&display=swap">
+<style>
+/* Layout: slim course rail (ordered modules with progress) beside one study panel with Learn / Cards / Drill / Quiz tabs. Mosque-tile green for structure, lapis for actions, brass for progress. */
+:root{
+  --bg:#EDF1EE; --surface:#FFFFFF; --surface2:#F5F8F6; --ink:#15251F; --muted:#586A63; --line:#D2DCD7;
+  --green:#0F5A4E; --green-soft:#DCEBE5; --lapis:#2A4FA3; --lapis-soft:#E1E8F6; --brass:#A87414;
+  --ok:#1D7648; --ok-soft:#DDF0E4; --bad:#B03A30; --bad-soft:#F7E1DE;
+  --ar:'Amiri Quran','Amiri','Noto Naskh Arabic','Traditional Arabic',serif;
+  --sans:'PT Sans','Noto Sans',system-ui,sans-serif; --serif:'PT Serif','Noto Serif',Georgia,serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0D1613; --surface:#15221E; --surface2:#1A2924; --ink:#E4EEE9; --muted:#9BB0A8; --line:#2A3C36;
+  --green:#5FC4AE; --green-soft:#1B3A33; --lapis:#8FAEF0; --lapis-soft:#1D2A4A; --brass:#E0AE4A;
+  --ok:#6FD39B; --ok-soft:#1A3A29; --bad:#F08A80; --bad-soft:#412120; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0D1613; --surface:#15221E; --surface2:#1A2924; --ink:#E4EEE9; --muted:#9BB0A8; --line:#2A3C36;
+  --green:#5FC4AE; --green-soft:#1B3A33; --lapis:#8FAEF0; --lapis-soft:#1D2A4A; --brass:#E0AE4A;
+  --ok:#6FD39B; --ok-soft:#1A3A29; --bad:#F08A80; --bad-soft:#412120; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 40px}
+.wrap{max-width:1080px;margin:0 auto}
+h1,h2,h3{font-family:var(--serif);line-height:1.2;text-wrap:balance;margin:0}
+h1{font-size:1.7rem}
+h2{font-size:1.35rem}
+h3{font-size:1.05rem}
+p{margin:0 0 .7em}
+.ar{font-family:var(--ar);direction:rtl;unicode-bidi:isolate;line-height:1.9}
+header{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:flex-end;justify-content:space-between;margin-bottom:18px}
+header p{color:var(--muted);margin:4px 0 0}
+.overall{min-width:220px;flex:0 1 280px}
+.overall small{color:var(--muted);display:block;margin-bottom:5px;font-variant-numeric:tabular-nums}
+.bar{height:8px;border-radius:4px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--brass);transition:width .4s}
+.shell{display:grid;grid-template-columns:260px minmax(0,1fr);gap:20px;align-items:start}
+nav ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+nav button{width:100%;display:flex;gap:10px;align-items:center;text-align:left;padding:9px 10px;background:var(--surface);
+  border:1px solid var(--line);border-radius:8px;color:var(--ink);font:inherit;cursor:pointer}
+nav button:hover{border-color:var(--green)}
+nav button[aria-current="true"]{border-color:var(--green);background:var(--green-soft)}
+.num{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:.85rem;font-weight:700;
+  background:var(--surface2);border:1px solid var(--line);font-variant-numeric:tabular-nums}
+.done .num{background:var(--green);color:var(--bg);border-color:var(--green)}
+nav .t{min-width:0;display:flex;flex-direction:column;line-height:1.25}
+nav .t b{font-weight:700;font-size:.95rem}
+nav .t span{font-size:.8rem;color:var(--muted)}
+.note{margin-top:14px;font-size:.85rem;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+main{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;min-width:0}
+.mhead{display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+.mhead small{color:var(--muted)}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:18px;flex-wrap:wrap}
+.tabs button{font:inherit;background:none;border:0;border-bottom:3px solid transparent;padding:8px 14px;color:var(--muted);cursor:pointer;font-weight:700}
+.tabs button[aria-selected="true"]{color:var(--green);border-bottom-color:var(--green)}
+.tabs button:focus-visible,nav button:focus-visible,.btn:focus-visible,.opt:focus-visible,.card:focus-visible,.reveal:focus-visible{outline:3px solid var(--lapis);outline-offset:2px}
+.lead{color:var(--muted);max-width:65ch}
+.lgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin:14px 0}
+.lcard{border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--surface2);display:grid;gap:6px;min-width:0}
+.lcard .big{font-size:3rem;text-align:center;color:var(--green);line-height:1.5}
+.lcard .nm{display:flex;justify-content:space-between;gap:8px;font-weight:700}
+.lcard .nm span{color:var(--muted);font-weight:400}
+.lcard p{font-size:.88rem;color:var(--muted);margin:0}
+.forms{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;text-align:center;border-top:1px dashed var(--line);padding-top:6px}
+.forms div{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.forms span{display:block;font-size:1.7rem;color:var(--ink);line-height:1.6}
+.forms .na{color:var(--line)}
+.tbl{overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;min-width:420px;width:100%}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:middle}
+th{background:var(--surface2);font-size:.82rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+td .ar{font-size:1.9rem;display:inline-block}
+.ex{display:flex;flex-wrap:wrap;gap:4px 16px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--line)}
+.ex .ar{font-size:2rem;min-width:7rem}
+.ex b{font-weight:700}
+.ex span.m{color:var(--muted)}
+.callout{background:var(--lapis-soft);border-radius:8px;padding:10px 14px;margin:12px 0;max-width:70ch}
+.callout b{color:var(--lapis)}
+.btn{font:inherit;font-weight:700;border-radius:8px;border:1px solid var(--lapis);background:var(--lapis);color:var(--bg);padding:9px 16px;cursor:pointer}
+.btn.ghost{background:none;color:var(--lapis)}
+.btn:hover{filter:brightness(1.1)}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;align-items:center}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.card{min-height:130px;border:1px solid var(--line);border-radius:10px;background:var(--surface2);display:grid;place-items:center;padding:10px;
+  text-align:center;cursor:pointer;font:inherit;color:var(--ink)}
+.card .ar{font-size:2.6rem;color:var(--green)}
+.card.flip{background:var(--green-soft);border-color:var(--green)}
+.card small{color:var(--muted);display:block}
+.qbox{max-width:620px}
+.qmeta{display:flex;justify-content:space-between;color:var(--muted);font-size:.9rem;margin-bottom:8px;font-variant-numeric:tabular-nums}
+.qprompt{font-size:1.05rem;margin-bottom:6px}
+.qbig{font-size:4.2rem;text-align:center;color:var(--green);margin:6px 0 14px;line-height:1.5}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.opt{font:inherit;font-size:1.1rem;padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);cursor:pointer;min-height:54px}
+.opt.ar{font-family:var(--ar);font-size:2.3rem;line-height:1.5;padding:4px 12px}
+.opt:hover:not(:disabled){border-color:var(--lapis)}
+.opt.ok{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.opt.bad{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.opt:disabled{cursor:default}
+.fb{min-height:1.6em;margin:12px 0 0;font-weight:700}
+.fb.ok{color:var(--ok)} .fb.bad{color:var(--bad)}
+.result{text-align:left}
+.result .score{font-family:var(--serif);font-size:3rem;color:var(--green);font-variant-numeric:tabular-nums}
+.reading{display:grid;gap:10px;margin:12px 0}
+.line{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface2)}
+.line .ar{font-size:2.2rem}
+.reveal{font:inherit;background:none;border:1px dashed var(--lapis);color:var(--lapis);border-radius:8px;padding:6px 12px;cursor:pointer}
+.line .tr{color:var(--ink);font-style:italic}
+@media (max-width:760px){
+  .shell{grid-template-columns:minmax(0,1fr)}
+  nav ol{flex-direction:row;overflow-x:auto;padding-bottom:6px}
+  nav li{flex:0 0 178px}
+  .note{display:none}
+  main{padding:14px}
+  .opts{grid-template-columns:1fr 1fr}
+  .qbig{font-size:3.4rem}
+}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Quran Alphabet Path</h1>
+      <p>From the first Arabic letter to reading a short surah, one module at a time.</p>
+    </div>
+    <div class="overall">
+      <small id="barTxt"></small>
+      <div class="bar" role="progressbar" aria-label="Course progress" aria-valuemin="0" aria-valuemax="11" id="barWrap"><i id="bar"></i></div>
+    </div>
+  </header>
+  <div class="shell">
+    <nav aria-label="Modules">
+      <ol id="rail"></ol>
+      <p class="note">Module order follows the standard Qur'an primer sequence. Letter names may differ slightly from your book (Tobashev, <i>Құран әліппесі және тәжуид қағидалары</i>) and can be matched to its chapters.</p>
+    </nav>
+    <main id="main"></main>
+  </div>
+</div>
+
+<script>
+(function(){
+var J='‍',FA='َ',KA='ِ',DA='ُ',SU='ْ',SH='ّ',FT='ً',KT='ٍ',DT='ٌ';
+
+var L=[
+{c:'ا',n:'әлиф',lat:'ā',j:0,h:'Long ā. It carries vowels but is not a consonant by itself.'},
+{c:'ب',n:'ба',lat:'b',j:1,h:'Like Kazakh б.'},
+{c:'ت',n:'та',lat:'t',j:1,h:'Like Kazakh т.'},
+{c:'ث',n:'са',lat:'th',j:1,h:'Like English "th" in "think", close to с.'},
+{c:'ج',n:'жим',lat:'j',j:1,h:'Like ж (or дж).'},
+{c:'ح',n:'ха',lat:'ḥ',j:1,h:'Breathy х from the throat, softer than خ.'},
+{c:'خ',n:'хы',lat:'kh',j:1,h:'Like Kazakh х.'},
+{c:'د',n:'дәл',lat:'d',j:0,h:'Like д. Does not join the next letter.'},
+{c:'ذ',n:'зәл',lat:'dh',j:0,h:'Like English "th" in "this", close to з. Does not join forward.'},
+{c:'ر',n:'ра',lat:'r',j:0,h:'Rolled р. Does not join forward.'},
+{c:'ز',n:'зәй',lat:'z',j:0,h:'Like з. Does not join forward.'},
+{c:'س',n:'син',lat:'s',j:1,h:'Like с.'},
+{c:'ش',n:'шин',lat:'sh',j:1,h:'Like ш.'},
+{c:'ص',n:'сад',lat:'ṣ',j:1,h:'Heavy, full-mouth с.'},
+{c:'ض',n:'дад',lat:'ḍ',j:1,h:'Heavy, full-mouth д.'},
+{c:'ط',n:'тоы',lat:'ṭ',j:1,h:'Heavy, full-mouth т.'},
+{c:'ظ',n:'зоы',lat:'ẓ',j:1,h:'Heavy, full-mouth з (like ذ but heavy).'},
+{c:'ع',n:'айн',lat:'ʿ',j:1,h:'Deep sound from the middle of the throat.'},
+{c:'غ',n:'ғайн',lat:'gh',j:1,h:'Like Kazakh ғ.'},
+{c:'ف',n:'фа',lat:'f',j:1,h:'Like ф.'},
+{c:'ق',n:'қаф',lat:'q',j:1,h:'Deep қ from the back of the mouth.'},
+{c:'ك',n:'кәф',lat:'k',j:1,h:'Like к.'},
+{c:'ل',n:'ләм',lat:'l',j:1,h:'Like л.'},
+{c:'م',n:'мим',lat:'m',j:1,h:'Like м.'},
+{c:'ن',n:'нүн',lat:'n',j:1,h:'Like н.'},
+{c:'ه',n:'һә',lat:'h',j:1,h:'Light breath, like Kazakh һ.'},
+{c:'و',n:'уау',lat:'w',j:0,h:'Like у/w; also the long ū. Does not join forward.'},
+{c:'ي',n:'я',lat:'y',j:1,h:'Like й; also the long ī.'}
+];
+var CONS=L.filter(function(l){return l.c!=='ا'});
+function forms(l){return {iso:l.c,ini:l.j?l.c+J:null,med:l.j?J+l.c+J:null,fin:J+l.c}}
+
+var W={
+ madd:[{ar:'قَالَ',lat:'qāla',m:'he said'},{ar:'قِيلَ',lat:'qīla',m:'it was said'},{ar:'يَقُولُ',lat:'yaqūlu',m:'he says'},
+       {ar:'كِتَابٌ',lat:'kitābun',m:'a book'},{ar:'نُورٌ',lat:'nūrun',m:'light'},{ar:'بَابٌ',lat:'bābun',m:'a door'}],
+ shadda:[{ar:'رَبَّنَا',lat:'rabbanā',m:'our Lord'},{ar:'جَنَّةٌ',lat:'jannatun',m:'a garden'},{ar:'أُمٌّ',lat:'ummun',m:'a mother'},
+       {ar:'مُحَمَّدٌ',lat:'muḥammadun',m:'Muhammad'},{ar:'حَقٌّ',lat:'ḥaqqun',m:'truth'}]
+};
+var NOON=[
+ {ar:'مِنْ هَادٍ',lat:'min hādin',r:'Izhar',why:'Noon sakin followed by ه, a throat letter.'},
+ {ar:'مِنْ عِلْمٍ',lat:'min ʿilmin',r:'Izhar',why:'Tanween/noon sakin followed by ع, a throat letter.'},
+ {ar:'مَنْ يَقُولُ',lat:'man yaqūlu',r:'Idgham',why:'Noon sakin followed by ي merges into it.'},
+ {ar:'مِنْ رَبِّهِمْ',lat:'min rabbihim',r:'Idgham',why:'Noon sakin followed by ر merges into it.'},
+ {ar:'مِنْ مَالٍ',lat:'min mālin',r:'Idgham',why:'Noon sakin followed by م merges into it.'},
+ {ar:'سَمِيعٌ بَصِيرٌ',lat:'samīʿun baṣīrun',r:'Iqlab',why:'Tanween followed by ب turns into a hidden م.'},
+ {ar:'مِنْ بَعْدِ',lat:'min baʿdi',r:'Iqlab',why:'Noon sakin followed by ب turns into a hidden م.'},
+ {ar:'مِنْ قَبْلُ',lat:'min qablu',r:'Ikhfa',why:'Noon sakin followed by ق, one of the 15 hiding letters.'},
+ {ar:'كُنْتُمْ',lat:'kuntum',r:'Ikhfa',why:'Noon sakin followed by ت, one of the 15 hiding letters.'},
+ {ar:'أَنْتَ',lat:'anta',r:'Ikhfa',why:'Noon sakin followed by ت, one of the 15 hiding letters.'}
+];
+var MEEM=[
+ {ar:'هُمْ بِهِ',lat:'hum bihi',r:'Ikhfa shafawi',why:'Meem sakin followed by ب is hidden at the lips.'},
+ {ar:'لَهُمْ مَا',lat:'lahum mā',r:'Idgham shafawi',why:'Meem sakin followed by م merges into it.'},
+ {ar:'لَكُمْ مَا',lat:'lakum mā',r:'Idgham shafawi',why:'Meem sakin followed by م merges into it.'},
+ {ar:'أَمْ لَمْ',lat:'am lam',r:'Izhar shafawi',why:'Meem sakin followed by any other letter is read clearly.'},
+ {ar:'هُمْ فِيهَا',lat:'hum fīhā',r:'Izhar shafawi',why:'Meem sakin followed by any other letter is read clearly.'}
+];
+var SUN='تثدذرزسشصضطظلن'.split(''), MOON='ابجحخعغفقكمهوي'.split('');
+var QAL='قطبجد'.split(''), HEAVY='خصضغطقظ'.split('');
+var SURAH=[
+ {ar:'قُلْ هُوَ اللَّهُ أَحَدٌ',lat:'Qul huwa llāhu aḥad'},
+ {ar:'اللَّهُ الصَّمَدُ',lat:'Allāhu ṣ-ṣamad'},
+ {ar:'لَمْ يَلِدْ وَلَمْ يُولَدْ',lat:'Lam yalid wa-lam yūlad'},
+ {ar:'وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ',lat:'Wa-lam yakun lahu kufuwan aḥad'}
+];
+
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function pick(a){return a[Math.floor(Math.random()*a.length)]}
+function mcq(prompt,big,correct,pool,opt){
+  opt=opt||{};var seen={};seen[correct]=1;var wrong=[];
+  shuffle(pool).forEach(function(p){if(!seen[p]&&wrong.length<3){seen[p]=1;wrong.push(p)}});
+  return {prompt:prompt,big:big||'',ar:!!opt.ar,why:opt.why||'',correct:correct,
+    opts:shuffle([correct].concat(wrong))};
+}
+function V(l,v){return l.lat+v}
+var VOW=[{m:FA,s:'a'},{m:KA,s:'i'},{m:DA,s:'u'}];
+var TAN=[{m:FT,s:'an'},{m:KT,s:'in'},{m:DT,s:'un'}];
+
+function letterGen(a,b){
+  var set=L.slice(a,b),upto=L.slice(0,b);
+  var l=pick(set);
+  if(Math.random()<.5){
+    return mcq('What is the name of this letter?',l.c,l.n,upto.map(function(x){return x.n}),{why:l.c+' is '+l.n+' ('+l.lat+'). '+l.h});
+  }
+  return mcq('Which letter is called «'+l.n+'»?','',l.c,upto.map(function(x){return x.c}),{ar:true,why:l.n+' is written '+l.c+'. '+l.h});
+}
+var GENS={
+ 1:function(){return letterGen(0,7)},
+ 2:function(){return letterGen(7,14)},
+ 3:function(){return letterGen(14,21)},
+ 4:function(){return letterGen(21,28)},
+ 5:function(){
+  var l=pick(L.filter(function(x){return x.c!=='ا'||true}));
+  if(Math.random()<.4){
+    return mcq('Does '+l.c+' join the letter that comes after it?','', l.j?'Yes':'No',['Yes','No'],{why:l.j?l.c+' joins forward.':l.c+' is one of the six letters that never join forward: ا د ذ ر ز و.'});
+  }
+  var f=forms(l),keys=['iso','fin'].concat(l.j?['ini','med']:[]);
+  var k=pick(keys);
+  return mcq('Which letter is shown in this form?',f[k],l.c,L.map(function(x){return x.c}),{ar:true,why:'This is the '+({iso:'isolated',ini:'initial',med:'medial',fin:'final'})[k]+' form of '+l.c+' ('+l.n+').'});
+ },
+ 6:function(){
+  var l=pick(CONS),v=pick(VOW),ans=V(l,v.s);
+  var pool=[];VOW.forEach(function(x){pool.push(V(l,x.s))});
+  for(var i=0;i<6;i++){pool.push(V(pick(CONS),pick(VOW).s))}
+  return mcq('How is this syllable read?',l.c+v.m,ans,pool,{why:'The mark decides the vowel: fatha = a, kasra = i, damma = u.'});
+ },
+ 7:function(){
+  if(Math.random()<.5){
+    var l=pick(CONS),t=pick(TAN),ans=V(l,t.s),pool=[];
+    TAN.forEach(function(x){pool.push(V(l,x.s))});
+    for(var i=0;i<5;i++)pool.push(V(pick(CONS),pick(TAN).s));
+    return mcq('Read this letter with tanween.',l.c+t.m,ans,pool,{why:'Tanween adds an "n" sound: fathatan = an, kasratan = in, dammatan = un.'});
+  }
+  var a=pick(CONS),b=pick(CONS),v=pick(VOW),ans2=a.lat+v.s+b.lat,pool2=[];
+  VOW.forEach(function(x){pool2.push(a.lat+x.s+b.lat)});
+  for(var j=0;j<5;j++)pool2.push(pick(CONS).lat+pick(VOW).s+pick(CONS).lat);
+  return mcq('Sukun means no vowel. How is this read?',a.c+v.m+b.c+SU,ans2,pool2,{why:'Read the first letter with its vowel, then stop on the second letter with no vowel.'});
+ },
+ 8:function(){
+  var all=W.madd.concat(W.shadda),w=pick(all);
+  var isM=W.madd.indexOf(w)>=0;
+  return mcq('How is this word read?',w.ar,w.lat,all.map(function(x){return x.lat}),{why:w.lat+' means "'+w.m+'". '+(isM?'The long vowel is held for two beats.':'The letter with shadda is read twice (doubled).')});
+ },
+ 9:function(){
+  var r=Math.random();
+  if(r<.4){
+    var l=pick(SUN.concat(MOON));var sun=SUN.indexOf(l)>=0;
+    return mcq('Is this a sun letter or a moon letter?',l,sun?'Sun letter':'Moon letter',['Sun letter','Moon letter'],{why:sun?'After ال, the lam is not pronounced and the sun letter is doubled.':'After ال, the lam is pronounced clearly with a moon letter.'});
+  }
+  if(r<.7){
+    var q=pick(QAL);
+    return mcq('Which of these is a qalqala letter?','',q,['ق','ط','ب','ج','د','ك','س','م','ن','ر','ل','ف'].filter(function(x){return QAL.indexOf(x)<0||x===q}),{ar:true,why:'The qalqala letters are ق ط ب ج د ("qutbu jadin"). They bounce when they have sukun.'});
+  }
+  var h=pick(HEAVY);
+  return mcq('Which of these is a heavy letter?','',h,['ص','ض','ط','ظ','غ','خ','ق','س','ت','د','ز','ذ','ك','ث'].filter(function(x){return HEAVY.indexOf(x)<0||x===h}).slice(0,14),{ar:true,why:'Heavy letters are خ ص ض غ ط ق ظ ("khuṣṣa ḍaghṭin qiẓ"). They are read with a full mouth.'});
+ },
+ 10:function(){
+  var e=pick(NOON);
+  return mcq('Which rule applies to the noon sakin or tanween here?',e.ar,e.r,['Izhar','Idgham','Iqlab','Ikhfa'],{why:e.lat+': '+e.why});
+ },
+ 11:function(){
+  var e=pick(MEEM.concat(NOON));
+  if(MEEM.indexOf(e)>=0&&Math.random()<.6){
+    return mcq('Which rule applies to the meem sakin here?',e.ar,e.r,['Ikhfa shafawi','Idgham shafawi','Izhar shafawi'],{why:e.lat+': '+e.why});
+  }
+  var all=W.madd.concat(W.shadda).concat(NOON).concat(MEEM);
+  return mcq('How is this read?',e.ar,e.lat,all.map(function(x){return x.lat}),{why:'Read it aloud once more: '+e.lat+'.'});
+ }
+};
+
+function ex(ar,lat,m){return '<div class="ex"><span class="ar">'+ar+'</span><b>'+lat+'</b><span class="m">'+m+'</span></div>'}
+function cell(ar){return '<td><span class="ar">'+ar+'</span></td>'}
+
+var M=[
+{id:1,t:'Letters ا to خ',s:'Letters 1–7',kind:'letters',a:0,b:7},
+{id:2,t:'Letters د to ص',s:'Letters 8–14',kind:'letters',a:7,b:14},
+{id:3,t:'Letters ض to ق',s:'Letters 15–21',kind:'letters',a:14,b:21},
+{id:4,t:'Letters ك to ي',s:'Letters 22–28',kind:'letters',a:21,b:28},
+{id:5,t:'Letter shapes',s:'Joining and forms',kind:'shapes',
+ teach:function(){
+  var rows=L.map(function(l){var f=forms(l);
+    return '<tr><td><b>'+l.n+'</b></td>'+cell(f.iso)+(f.ini?cell(f.ini):'<td>—</td>')+(f.med?cell(f.med):'<td>—</td>')+cell(f.fin)+'<td>'+(l.j?'Yes':'No')+'</td></tr>'}).join('');
+  return '<p class="lead">Arabic is written right to left and letters join. Each letter changes shape by position: alone, at the start, in the middle, at the end.</p>'+
+  '<div class="callout"><b>Six letters never join forward:</b> <span class="ar" style="font-size:1.6rem">ا د ذ ر ز و</span>. A gap always follows them, even inside a word.</div>'+
+  '<div class="tbl"><table><thead><tr><th>Letter</th><th>Alone</th><th>Start</th><th>Middle</th><th>End</th><th>Joins forward</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+ },
+ cards:function(){return L.map(function(l){var f=forms(l);return {f:'<span class="ar">'+f.iso+'</span>',b:'<b>'+l.n+'</b><small>'+(l.j?'Joins forward':'Does not join forward')+'</small>'}})}},
+{id:6,t:'Three short vowels',s:'Fatha, kasra, damma',kind:'x',
+ teach:function(){
+  var rows=[0,1,2,3,4,5].map(function(i){var l=L[i+1];return '<tr><td><b>'+l.n+'</b></td>'+cell(l.c+FA)+cell(l.c+KA)+cell(l.c+DA)+'<td>'+l.lat+'a · '+l.lat+'i · '+l.lat+'u</td></tr>'}).join('');
+  return '<p class="lead">Arabic letters are consonants. Small marks (harakat) above or below them add the short vowels.</p>'+
+  '<div class="tbl"><table><thead><tr><th>Mark</th><th>Name</th><th>Sound</th><th>On a letter</th></tr></thead><tbody>'+
+  '<tr><td><span class="ar">'+FA+'</span></td><td>Fatha</td><td>a (short, like а)</td>'+cell('بَ')+'</tr>'+
+  '<tr><td><span class="ar">'+KA+'</span></td><td>Kasra</td><td>i (short, like ы/і)</td>'+cell('بِ')+'</tr>'+
+  '<tr><td><span class="ar">'+DA+'</span></td><td>Damma</td><td>u (short, like ұ/у)</td>'+cell('بُ')+'</tr></tbody></table></div>'+
+  '<h3>Practice with six letters</h3><div class="tbl"><table><thead><tr><th>Letter</th><th>Fatha</th><th>Kasra</th><th>Damma</th><th>Reading</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
+  '<h3>First words</h3>'+ex('كَتَبَ','kataba','he wrote')+ex('عِلْمٌ','ʿilmun','knowledge')+ex('قُلْ','qul','say')},
+ cards:function(){var o=[];[1,2,3,11].forEach(function(i){VOW.forEach(function(v){o.push({f:'<span class="ar">'+L[i].c+v.m+'</span>',b:'<b>'+V(L[i],v.s)+'</b>'})})});return o}},
+{id:7,t:'Tanween and sukun',s:'Double marks, no vowel',kind:'x',
+ teach:function(){
+  return '<p class="lead">Tanween is a doubled vowel mark at the end of a word. It adds an "n" sound. Sukun is a small circle meaning the letter has no vowel.</p>'+
+  '<div class="tbl"><table><thead><tr><th>Mark</th><th>Name</th><th>Sound</th><th>Example</th></tr></thead><tbody>'+
+  '<tr><td><span class="ar">'+FT+'</span></td><td>Fathatan</td><td>an</td>'+cell('بًا')+'</tr>'+
+  '<tr><td><span class="ar">'+KT+'</span></td><td>Kasratan</td><td>in</td>'+cell('بٍ')+'</tr>'+
+  '<tr><td><span class="ar">'+DT+'</span></td><td>Dammatan</td><td>un</td>'+cell('بٌ')+'</tr>'+
+  '<tr><td><span class="ar">'+SU+'</span></td><td>Sukun</td><td>stop, no vowel</td>'+cell('بَتْ')+'</tr></tbody></table></div>'+
+  '<h3>Examples</h3>'+ex('كِتَابٌ','kitābun','a book')+ex('قَلَمٌ','qalamun','a pen')+ex('مِنْ','min','from')+ex('هَلْ','hal','is it? (question word)')},
+ cards:function(){return [
+  {f:'<span class="ar">بً</span>',b:'<b>ban</b><small>fathatan</small>'},{f:'<span class="ar">بٍ</span>',b:'<b>bin</b><small>kasratan</small>'},
+  {f:'<span class="ar">بٌ</span>',b:'<b>bun</b><small>dammatan</small>'},{f:'<span class="ar">بَتْ</span>',b:'<b>bat</b><small>sukun on ت</small>'},
+  {f:'<span class="ar">مِنْ</span>',b:'<b>min</b>'},{f:'<span class="ar">هَلْ</span>',b:'<b>hal</b>'}]}},
+{id:8,t:'Shadda and long vowels',s:'Doubling and madd',kind:'x',
+ teach:function(){
+  return '<h3>Shadda <span class="ar" style="font-size:1.6rem">'+SH+'</span></h3><p class="lead">Shadda doubles a letter: read it twice, first closed (sukun), then with its vowel.</p>'+
+  W.shadda.map(function(w){return ex(w.ar,w.lat,w.m)}).join('')+
+  '<h3 style="margin-top:20px">Madd: long vowels</h3><p class="lead">Three letters stretch a vowel to about two beats when they follow a matching vowel mark.</p>'+
+  '<div class="tbl"><table><thead><tr><th>Pattern</th><th>Long sound</th><th>Example</th></tr></thead><tbody>'+
+  '<tr><td>Fatha + ا</td><td>ā</td>'+cell('بَا')+'</tr>'+
+  '<tr><td>Kasra + ي (no vowel)</td><td>ī</td>'+cell('بِي')+'</tr>'+
+  '<tr><td>Damma + و (no vowel)</td><td>ū</td>'+cell('بُو')+'</tr></tbody></table></div>'+
+  W.madd.map(function(w){return ex(w.ar,w.lat,w.m)}).join('')},
+ cards:function(){return W.shadda.concat(W.madd).map(function(w){return {f:'<span class="ar">'+w.ar+'</span>',b:'<b>'+w.lat+'</b><small>'+w.m+'</small>'}})}},
+{id:9,t:'Sun, moon, heavy',s:'Lam, qalqala, heavy letters',kind:'x',
+ teach:function(){
+  function row(a){return a.map(function(c){return '<span class="ar" style="font-size:1.9rem;margin:0 6px">'+c+'</span>'}).join('')}
+  return '<p class="lead">Three sound rules every reader needs before the main tajweed rules.</p>'+
+  '<h3>1. The article ال: sun and moon letters</h3>'+
+  '<p>Before 14 "sun" letters the lam of ال is silent and the next letter is doubled. Before 14 "moon" letters the lam is read clearly.</p>'+
+  '<p><b>Sun:</b> '+row(SUN)+'</p><p><b>Moon:</b> '+row(MOON)+'</p>'+
+  ex('الشَّمْسُ','ash-shamsu','the sun (lam silent)')+ex('الْقَمَرُ','al-qamaru','the moon (lam read)')+
+  '<h3 style="margin-top:20px">2. Qalqala: the bounce</h3><p>These five letters bounce slightly when they have sukun or end a stop: <span class="ar" style="font-size:1.8rem">قطب جد</span></p>'+
+  '<h3 style="margin-top:20px">3. Heavy letters</h3><p>Seven letters are read with a full, raised mouth: <span class="ar" style="font-size:1.8rem">خص ضغط قظ</span>. All other letters are light.</p>'},
+ cards:function(){return [
+  {f:'<span class="ar">ال + ش</span>',b:'<b>Sun</b><small>lam silent</small>'},{f:'<span class="ar">ال + ق</span>',b:'<b>Moon</b><small>lam read</small>'},
+  {f:'<span class="ar">قطب جد</span>',b:'<b>Qalqala</b><small>bouncing letters</small>'},{f:'<span class="ar">خص ضغط قظ</span>',b:'<b>Heavy</b><small>full-mouth letters</small>'}]}},
+{id:10,t:'Noon sakin rules',s:'Izhar, idgham, iqlab, ikhfa',kind:'x',
+ teach:function(){
+  return '<p class="lead">When a noun ends with tanween or a noon has sukun, its sound depends on the next letter. Four rules cover every case.</p>'+
+  '<div class="tbl"><table><thead><tr><th>Rule</th><th>Meaning</th><th>Next letters</th><th>Example</th></tr></thead><tbody>'+
+  '<tr><td><b>Izhar</b></td><td>Clear</td><td><span class="ar" style="font-size:1.5rem">ء هـ ع ح غ خ</span></td>'+cell('مِنْ هَادٍ')+'</tr>'+
+  '<tr><td><b>Idgham</b></td><td>Merge</td><td><span class="ar" style="font-size:1.5rem">ي ر م ل و ن</span></td>'+cell('مَنْ يَقُولُ')+'</tr>'+
+  '<tr><td><b>Iqlab</b></td><td>Change to م</td><td><span class="ar" style="font-size:1.5rem">ب</span></td>'+cell('مِنْ بَعْدِ')+'</tr>'+
+  '<tr><td><b>Ikhfa</b></td><td>Hide</td><td>the other 15 letters</td>'+cell('مِنْ قَبْلُ')+'</tr></tbody></table></div>'+
+  '<div class="callout"><b>Tip:</b> Idgham before ي ن م و carries a nasal hum (ghunna). Before ل and ر it has none. Ikhfa has a nasal hum too.</div>'+
+  NOON.map(function(e){return ex(e.ar,e.lat,e.r)}).join('')},
+ cards:function(){return NOON.map(function(e){return {f:'<span class="ar">'+e.ar+'</span>',b:'<b>'+e.r+'</b><small>'+e.lat+'</small>'}})}},
+{id:11,t:'Meem sakin and reading',s:'Last rules, then Surah al-Ikhlas',kind:'x',
+ teach:function(){
+  return '<p class="lead">Meem sakin has three rules, depending on the letter after it.</p>'+
+  '<div class="tbl"><table><thead><tr><th>Rule</th><th>Next letter</th><th>What happens</th><th>Example</th></tr></thead><tbody>'+
+  '<tr><td><b>Ikhfa shafawi</b></td><td><span class="ar" style="font-size:1.5rem">ب</span></td><td>Hidden at the lips with a hum</td>'+cell('هُمْ بِهِ')+'</tr>'+
+  '<tr><td><b>Idgham shafawi</b></td><td><span class="ar" style="font-size:1.5rem">م</span></td><td>Two meems merge, with a hum</td>'+cell('لَهُمْ مَا')+'</tr>'+
+  '<tr><td><b>Izhar shafawi</b></td><td>all others</td><td>Read clearly</td>'+cell('أَمْ لَمْ')+'</tr></tbody></table></div>'+
+  '<h3 style="margin-top:20px">Reading practice: Surah al-Ikhlas</h3><p>Read each line aloud first, then tap to check.</p>'+
+  '<div class="reading">'+SURAH.map(function(s,i){return '<div class="line"><span class="ar">'+s.ar+'</span><span><button class="reveal" data-i="'+i+'">Show reading</button><span class="tr" hidden id="tr'+i+'">'+s.lat+'</span></span></div>'}).join('')+'</div>'},
+ cards:function(){return MEEM.map(function(e){return {f:'<span class="ar">'+e.ar+'</span>',b:'<b>'+e.r+'</b><small>'+e.lat+'</small>'}}).concat(SURAH.map(function(s){return {f:'<span class="ar" style="font-size:1.7rem">'+s.ar+'</span>',b:'<b>'+s.lat+'</b>'}}))}}
+];
+
+var store={get:function(){try{return JSON.parse(localStorage.getItem('qap-v1')||'{}')}catch(e){return {}}},
+  set:function(v){try{localStorage.setItem('qap-v1',JSON.stringify(v))}catch(e){}}};
+var prog=store.get();prog.mods=prog.mods||{};
+var cur=Math.min(Math.max(parseInt(prog.cur,10)||1,1),11),tab='learn',sess=null;
+
+function mp(id){return prog.mods[id]||(prog.mods[id]={})}
+function save(){prog.cur=cur;store.set(prog)}
+function mod(id){return M[id-1]}
+
+function rail(){
+  var done=0;
+  var html=M.map(function(m){var p=prog.mods[m.id]||{};var d=!!p.done;if(d)done++;
+    return '<li><button class="'+(d?'done':'')+'" data-m="'+m.id+'"'+(m.id===cur?' aria-current="true"':'')+'><span class="num">'+(d?'✓':m.id)+'</span><span class="t"><b>'+m.t+'</b><span>'+(p.best!=null?'Best '+p.best+'/10':m.s)+'</span></span></button></li>'}).join('');
+  document.getElementById('rail').innerHTML=html;
+  document.getElementById('bar').style.width=(done/M.length*100)+'%';
+  document.getElementById('barWrap').setAttribute('aria-valuenow',done);
+  document.getElementById('barTxt').textContent=done+' of '+M.length+' modules passed';
+}
+
+function lettersLesson(m){
+  var cards=L.slice(m.a,m.b).map(function(l){var f=forms(l);
+    function fm(k,lab){return '<div>'+lab+'<span class="'+(f[k]?'ar':'ar na')+'">'+(f[k]||'–')+'</span></div>'}
+    return '<div class="lcard"><div class="ar big">'+l.c+'</div><div class="nm"><b>'+l.n+'</b><span>'+l.lat+'</span></div><p>'+l.h+'</p>'+
+      '<div class="forms">'+fm('iso','Alone')+fm('ini','Start')+fm('med','Mid')+fm('fin','End')+'</div></div>'}).join('');
+  return '<p class="lead">Learn the shape, the name and the sound together. Say each name aloud three times, then move to Cards.</p><div class="lgrid">'+cards+'</div>';
+}
+function lettersCards(m){return L.slice(m.a,m.b).map(function(l){return {f:'<span class="ar">'+l.c+'</span>',b:'<b>'+l.n+'</b><small>'+l.lat+'</small>'}})}
+
+function render(){
+  var m=mod(cur);rail();
+  var tabs=['learn','Learn','cards','Cards','drill','Drill','quiz','Quiz'],th='';
+  for(var i=0;i<tabs.length;i+=2)th+='<button role="tab" data-t="'+tabs[i]+'" aria-selected="'+(tab===tabs[i])+'">'+tabs[i+1]+'</button>';
+  var body='';
+  if(tab==='learn'){body=(m.kind==='letters'?lettersLesson(m):m.teach())+
+    '<div class="row"><button class="btn" data-go="cards">Practice with cards</button><button class="btn ghost" data-go="quiz">Skip to quiz</button></div>';mp(cur).seen=1;save()}
+  else if(tab==='cards'){var items=m.kind==='letters'?lettersCards(m):m.cards();
+    body='<p class="lead">Tap a card to flip it. Say the answer aloud before you flip.</p><div class="cards">'+items.map(function(c){return '<button class="card" data-flip="0"><div class="front">'+c.f+'</div><div class="back" hidden>'+c.b+'</div></button>'}).join('')+'</div>'}
+  else if(tab==='drill'){body='<div id="qwrap"></div>'}
+  else {body='<div id="qwrap"></div>'}
+  document.getElementById('main').innerHTML='<div class="mhead"><h2>'+m.id+'. '+m.t+'</h2><small>'+m.s+'</small></div>'+
+    '<div class="tabs" role="tablist">'+th+'</div>'+body;
+  if(tab==='drill')startSess('drill');
+  if(tab==='quiz')startSess('quiz');
+}
+
+function startSess(mode){sess={mode:mode,i:0,score:0,done:0,streak:0,q:null,answered:false,N:mode==='quiz'?10:0};nextQ()}
+function nextQ(){sess.q=GENS[cur]();sess.answered=false;drawQ()}
+function drawQ(){
+  var q=sess.q,w=document.getElementById('qwrap');if(!w)return;
+  var meta=sess.mode==='quiz'?'<span>Question '+(sess.i+1)+' of '+sess.N+'</span><span>Score '+sess.score+'</span>':'<span>Practice, no limit</span><span>Streak '+sess.streak+' · '+sess.score+'/'+sess.done+' correct</span>';
+  w.innerHTML='<div class="qbox"><div class="qmeta">'+meta+'</div><div class="qprompt">'+q.prompt+'</div>'+
+    (q.big?'<div class="ar qbig">'+q.big+'</div>':'')+
+    '<div class="opts">'+q.opts.map(function(o,i){return '<button class="opt'+(q.ar?' ar':'')+'" data-o="'+i+'">'+o+'</button>'}).join('')+'</div>'+
+    '<p class="fb" id="fb" aria-live="polite"></p><div class="row" id="nx"></div></div>';
+}
+function answer(i){
+  if(sess.answered)return;sess.answered=true;
+  var q=sess.q,ok=q.opts[i]===q.correct;
+  sess.done++;if(ok){sess.score++;sess.streak++}else sess.streak=0;
+  document.querySelectorAll('.opt').forEach(function(b,k){b.disabled=true;if(q.opts[k]===q.correct)b.classList.add('ok');else if(k===i)b.classList.add('bad')});
+  var fb=document.getElementById('fb');fb.className='fb '+(ok?'ok':'bad');
+  fb.textContent=(ok?'Correct. ':'Not quite. ')+q.why;
+  var last=sess.mode==='quiz'&&sess.i+1>=sess.N;
+  document.getElementById('nx').innerHTML='<button class="btn" data-next="1">'+(last?'See result':'Next')+'</button>';
+  document.querySelector('[data-next]').focus();
+}
+function next(){
+  if(sess.mode==='quiz'){sess.i++;if(sess.i>=sess.N)return finish()}
+  nextQ();
+}
+function finish(){
+  var p=mp(cur),s=sess.score,pass=s>=8;
+  if(p.best==null||s>p.best)p.best=s;if(pass)p.done=1;save();rail();
+  var nxt=cur<M.length;
+  document.getElementById('qwrap').innerHTML='<div class="qbox result"><div class="score">'+s+' / 10</div>'+
+    '<p>'+(pass?'Module passed. '+(nxt?'The next module is ready.':'You have finished the course. Keep reading aloud every day.'):'You need 8 of 10 to pass. Review the lesson and cards, then try again.')+'</p>'+
+    '<div class="row">'+(pass&&nxt?'<button class="btn" data-m="'+(cur+1)+'">Next module</button>':'')+
+    '<button class="btn '+(pass&&nxt?'ghost':'')+'" data-go="quiz">Retry quiz</button><button class="btn ghost" data-go="learn">Review lesson</button></div></div>';
+}
+
+document.addEventListener('click',function(e){
+  var t=e.target.closest('button');if(!t)return;
+  if(t.dataset.m){cur=parseInt(t.dataset.m,10);tab='learn';save();render();window.scrollTo(0,0)}
+  else if(t.dataset.t){tab=t.dataset.t;render()}
+  else if(t.dataset.go){tab=t.dataset.go;render()}
+  else if(t.dataset.o!=null)answer(parseInt(t.dataset.o,10));
+  else if(t.dataset.next)next();
+  else if(t.dataset.flip!=null){var f=t.querySelector('.front'),b=t.querySelector('.back');var on=b.hidden;b.hidden=!on;f.hidden=on;t.classList.toggle('flip',on)}
+  else if(t.classList.contains('reveal')){var el=document.getElementById('tr'+t.dataset.i);el.hidden=false;t.hidden=true}
+});
+render();
+})();
+</script>
+
+</body></html>
